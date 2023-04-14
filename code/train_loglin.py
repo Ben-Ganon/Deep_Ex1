@@ -71,7 +71,7 @@ def train_classifier(train_data, dev_data, num_iterations, learning_rate, params
     return params
 
 if __name__ == '__main__':
-    # YOUR CODE HERE
+    #. YOUR CODE HERE
     # write code to load the train and dev sets, set up whatever you need,
     # and call train_classifier.
     train_data = utils.read_data('train')

@@ -3,7 +3,7 @@ import numpy as np
 import mlp1 as ll
 import random
 import utils
-from utils import F2I as vocabulary
+from utils import F_UNI_I as vocabulary
 
 STUDENT={'name': 'YOUR NAME',
          'ID': 'YOUR ID NUMBER'}
@@ -46,6 +46,7 @@ def train_classifier(train_data, dev_data, num_iterations, learning_rate, params
     learning_rate: the learning rate to use.
     params: list of parameters (initial values)
     """
+    max_dev_acc = 0
     for I in range(num_iterations):
         cum_loss = 0.0 # total loss in this iteration.
         random.shuffle(train_data)
@@ -69,8 +70,9 @@ def train_classifier(train_data, dev_data, num_iterations, learning_rate, params
         train_loss = cum_loss / len(train_data)
         train_accuracy = accuracy_on_dataset(train_data, params)
         dev_accuracy = accuracy_on_dataset(dev_data, params)
+
         print(I, train_loss, train_accuracy, dev_accuracy)
-    return params
+    return params, dev_accuracy
 
 
 def get_key_from_dict(dict, value):
@@ -97,11 +99,19 @@ if __name__ == '__main__':
     train_data = utils.read_data('../data/train')
     dev_data = utils.read_data('../data/dev')
     in_dim = len(feats_to_vec(train_data[0][1]))
-    hid_dim = 64
+    hid_dim = 16
     out_dim = 6
-    num_iterations = 20
+    num_iterations = 1000
     learning_rate = 0.01
-   
+    # l_rates = [0.001, 0.01,0.05, 0.2, 0.3, 0.1, 0.5]
+    # hid_dims = [8, 16, 32, 64]
+    # for rate in l_rates:
+    #     for dim in hid_dims:
+    #         print("learning rate: ", rate, " hidden dim: ", dim)
+    #         params = ll.create_classifier(in_dim, dim, out_dim)
+    #         trained_params, dev_acc = train_classifier(train_data, dev_data, num_iterations, rate, params)
+    #         print("dev accuaracy: ", dev_acc)
+
     params = ll.create_classifier(in_dim, hid_dim, out_dim)
     trained_params = train_classifier(train_data, dev_data, num_iterations, learning_rate, params)
     run_on_test_and_write(trained_params)

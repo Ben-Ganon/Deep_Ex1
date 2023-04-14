@@ -1,6 +1,7 @@
 import numpy as np
 from utils import *
 from loglinear import softmax
+from grad_check import gradient_check
 
 STUDENT={'name': 'YOUR NAME',
          'ID': 'YOUR ID NUMBER'}
@@ -25,6 +26,7 @@ def predict(x, params):
 
 def loss_and_gradients(x, y, params):
     """
+    calculates the loss and the gradients at point x with given parameters.
     params: a list of the form [W, b, U, b_tag]
 
     returns:
@@ -42,9 +44,9 @@ def loss_and_gradients(x, y, params):
     probs[y] -= 1
     gU = np.outer(np.tanh(np.dot(x, W) + b), probs)
     gb_tag = probs
-    gW = np.outer(x, (1 - np.tanh(np.dot(x, W) + b) ** 2) * np.dot(probs, U.T))
-    gb = (1 - np.tanh(np.dot(x, W) + b) ** 2) * np.dot(probs, U.T)
-    return loss,[gW, gb, gU, gb_tag]
+    gb = np.dot(probs, U.T) * (1 - np.tanh(np.dot(x, W) + b) ** 2)
+    gW = np.outer(x, gb)
+    return loss, [gW, gb, gU, gb_tag]
 
 def create_classifier(in_dim, hid_dim, out_dim):
     """
@@ -55,9 +57,9 @@ def create_classifier(in_dim, hid_dim, out_dim):
     return:
     a flat list of 4 elements, W, b, U, b_tag.
     """
-    W1 = np.zeros((in_dim, hid_dim))
+    W1 = np.random.randn(in_dim, hid_dim) / np.sqrt(in_dim)
     b1 = np.zeros(hid_dim)
-    U = np.zeros((hid_dim, out_dim))
+    U = np.random.randn(hid_dim, out_dim) / np.sqrt(hid_dim)
     b2 = np.zeros(out_dim)
     return [W1, b1, U, b2]
 

@@ -3,6 +3,7 @@ import numpy as np
 import loglinear as ll
 import random
 import utils
+from utils import fc as vocabulary
 
 STUDENT={'name': 'YOUR NAME',
          'ID': 'YOUR ID NUMBER'}

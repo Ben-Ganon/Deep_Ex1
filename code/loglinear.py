@@ -66,6 +66,7 @@ def create_classifier(in_dim, out_dim):
     b = np.zeros(out_dim)
     return [W,b]
 
+
 if __name__ == '__main__':
     # Sanity checks for softmax. If these fail, your softmax is definitely wrong.
     # If these pass, it may or may not be correct.

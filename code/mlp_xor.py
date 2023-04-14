@@ -10,14 +10,7 @@ STUDENT={'name': 'YOUR NAME',
 
 
 def feats_to_vec(features):
-    # Create a numpy array of zeros with length equal to the size of the vocabulary
-    vec = np.zeros(len(vocabulary))
-    # Count the frequency of each word in the features and update the corresponding entry in the vector
-    for word in utils.text_to_bigrams(features):
-        if word in vocabulary:
-            vec[vocabulary[word]] += 1
-
-    return vec
+   return features
 
 def accuracy_on_dataset(dataset, params):
     good = bad = 0.0
@@ -27,7 +20,7 @@ def accuracy_on_dataset(dataset, params):
         # on the dataset.
         # accuracy is (correct_predictions / all_predictions)
         x = feats_to_vec(features)
-        y = utils.L2I[label]
+        y = label
         y_hat = ll.predict(x, params)
         if y == y_hat:
             good += 1
@@ -52,7 +45,7 @@ def train_classifier(train_data, dev_data, num_iterations, learning_rate, params
         random.shuffle(train_data)
         for label, features in train_data:
             x = feats_to_vec(features) # convert features to a vector.
-            y = utils.L2I[label]                  # convert the label to number if needed.
+            y = label                  # convert the label to number if needed.
             loss, grads = ll.loss_and_gradients(x,y,params)
             cum_loss += loss
             # YOUR CODE HERE
@@ -97,11 +90,12 @@ if __name__ == '__main__':
     # write code to load the train and dev sets, set up whatever you need,
     # and call train_classifier.
     train_data = data
+    dev_data = data
     in_dim = len(feats_to_vec(train_data[0][1]))
     hid_dim = 16
     out_dim = 6
-    num_iterations = 1000
-    learning_rate = 0.01
+    num_iterations = 500
+    learning_rate = 0.1
     # l_rates = [0.001, 0.01,0.05, 0.2, 0.3, 0.1, 0.5]
     # hid_dims = [8, 16, 32, 64]
     # for rate in l_rates:

@@ -2,6 +2,7 @@ import numpy as np
 
 import loglinear as ll
 import random
+import utils
 from utils import fc as vocabulary
 
 STUDENT={'name': 'YOUR NAME',
@@ -26,6 +27,13 @@ def accuracy_on_dataset(dataset, params):
         # Compute the accuracy (a scalar) of the current parameters
         # on the dataset.
         # accuracy is (correct_predictions / all_predictions)
+        x = feats_to_vec(features)
+        y = label
+        y_hat = ll.predict(x, params)
+        if y == y_hat:
+            good += 1
+        else:
+            bad += 1
         pass
     return good / (good + bad)
 
@@ -50,6 +58,11 @@ def train_classifier(train_data, dev_data, num_iterations, learning_rate, params
             # YOUR CODE HERE
             # update the parameters according to the gradients
             # and the learning rate.
+            gW = grads[0]
+            gb = grads[1]
+            params[0] -= learning_rate * gW
+            params[1] -= learning_rate * gb
+
 
 
         train_loss = cum_loss / len(train_data)
@@ -59,11 +72,15 @@ def train_classifier(train_data, dev_data, num_iterations, learning_rate, params
     return params
 
 if __name__ == '__main__':
-    # YOUR CODE HERE
+    #. YOUR CODE HERE
     # write code to load the train and dev sets, set up whatever you need,
     # and call train_classifier.
-    
-    # ...
+    train_data = utils.read_data('train')
+    dev_data = utils.read_data('dev')
+    in_dim = len(ll.feats_to_vec(train_data[0][1]))
+    out_dim = 5
+    num_iterations = 10
+    learning_rate = 0.01
    
     params = ll.create_classifier(in_dim, out_dim)
     trained_params = train_classifier(train_data, dev_data, num_iterations, learning_rate, params)

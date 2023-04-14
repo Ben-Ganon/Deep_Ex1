@@ -3,7 +3,7 @@ import numpy as np
 import loglinear as ll
 import random
 import utils
-from utils import fc as vocabulary
+from utils import F2I as vocabulary
 
 STUDENT={'name': 'YOUR NAME',
          'ID': 'YOUR ID NUMBER'}
@@ -12,9 +12,8 @@ STUDENT={'name': 'YOUR NAME',
 def feats_to_vec(features):
     # Create a numpy array of zeros with length equal to the size of the vocabulary
     vec = np.zeros(len(vocabulary))
-
     # Count the frequency of each word in the features and update the corresponding entry in the vector
-    for word in features:
+    for word in utils.text_to_bigrams(features):
         if word in vocabulary:
             vec[vocabulary[word]] += 1
 
@@ -28,7 +27,7 @@ def accuracy_on_dataset(dataset, params):
         # on the dataset.
         # accuracy is (correct_predictions / all_predictions)
         x = feats_to_vec(features)
-        y = label
+        y =  utils.L2I[label]
         y_hat = ll.predict(x, params)
         if y == y_hat:
             good += 1
@@ -52,7 +51,7 @@ def train_classifier(train_data, dev_data, num_iterations, learning_rate, params
         random.shuffle(train_data)
         for label, features in train_data:
             x = feats_to_vec(features) # convert features to a vector.
-            y = label                  # convert the label to number if needed.
+            y = utils.L2I[label]                  # convert the label to number if needed.
             loss, grads = ll.loss_and_gradients(x,y,params)
             cum_loss += loss
             # YOUR CODE HERE
@@ -75,10 +74,10 @@ if __name__ == '__main__':
     #. YOUR CODE HERE
     # write code to load the train and dev sets, set up whatever you need,
     # and call train_classifier.
-    train_data = utils.read_data('train')
-    dev_data = utils.read_data('dev')
-    in_dim = len(ll.feats_to_vec(train_data[0][1]))
-    out_dim = 5
+    train_data = utils.read_data('../data/train')
+    dev_data = utils.read_data('../data/dev')
+    in_dim = len(feats_to_vec(train_data[0][1]))
+    out_dim = 6
     num_iterations = 10
     learning_rate = 0.01
    

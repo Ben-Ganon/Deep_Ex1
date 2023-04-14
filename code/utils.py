@@ -31,4 +31,4 @@ L2I = {l:i for i,l in enumerate(list(sorted(set([l for l,t in TRAIN]))))}
 F2I = {f:i for i,f in enumerate(list(sorted(vocab)))}
 
 text = "Swear they have a day for anything . National Peanut Butter & Jelly Day ? #DoingTooMuch"
-print(text_to_bigrams(text))
+print(L2I)

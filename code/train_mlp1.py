@@ -1,6 +1,6 @@
 import numpy as np
 
-import loglinear as ll
+import mlp1 as ll
 import random
 import utils
 from utils import F2I as vocabulary
@@ -58,11 +58,13 @@ def train_classifier(train_data, dev_data, num_iterations, learning_rate, params
             # update the parameters according to the gradients
             # and the learning rate.
             gW = grads[0]
-            gb = grads[1]
+            gB = grads[1]
+            gU = grads[2]
+            gb_tag = grads[3]
             params[0] -= learning_rate * gW
-            params[1] -= learning_rate * gb
-
-
+            params[1] -= learning_rate * gB
+            params[2] -= learning_rate * gU
+            params[3] -= learning_rate * gb_tag
 
         train_loss = cum_loss / len(train_data)
         train_accuracy = accuracy_on_dataset(train_data, params)
@@ -95,10 +97,11 @@ if __name__ == '__main__':
     train_data = utils.read_data('../data/train')
     dev_data = utils.read_data('../data/dev')
     in_dim = len(feats_to_vec(train_data[0][1]))
+    hid_dim = 64
     out_dim = 6
-    num_iterations = 10
+    num_iterations = 20
     learning_rate = 0.01
    
-    params = ll.create_classifier(in_dim, out_dim)
+    params = ll.create_classifier(in_dim, hid_dim, out_dim)
     trained_params = train_classifier(train_data, dev_data, num_iterations, learning_rate, params)
     run_on_test_and_write(trained_params)

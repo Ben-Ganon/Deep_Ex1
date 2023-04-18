@@ -5,8 +5,11 @@ import random
 import utils
 from utils import F2I as vocabulary
 
-STUDENT={'name': 'YOUR NAME',
-         'ID': 'YOUR ID NUMBER'}
+STUDENT = {'name1': 'Omri Ben Hemo',
+           'ID1': '313255242',
+           'name2': 'Ben Ganon',
+           'ID2': '318731007'
+           }
 
 
 def feats_to_vec(features):
@@ -47,23 +50,18 @@ def train_classifier(train_data, dev_data, num_iterations, learning_rate, params
     params: list of parameters (initial values)
     """
     for I in range(num_iterations):
-        cum_loss = 0.0 # total loss in this iteration.
+        cum_loss = 0.0  # total loss in this iteration.
         random.shuffle(train_data)
         for label, features in train_data:
-            x = feats_to_vec(features) # convert features to a vector.
-            y = utils.L2I[label]                  # convert the label to number if needed.
-            loss, grads = ll.loss_and_gradients(x,y,params)
+            x = feats_to_vec(features)  # convert features to a vector.
+            y = utils.L2I[label]  # convert the label to number if needed.
+            loss, grads = ll.loss_and_gradients(x, y, params)
             cum_loss += loss
             # YOUR CODE HERE
             # update the parameters according to the gradients
             # and the learning rate.
-            gW = grads[0]
-            gb = grads[1]
-            params[0] -= learning_rate * gW
-            params[1] -= learning_rate * gb
-
-
-
+            for index in range(len(params)):
+                params[index] -= learning_rate * grads[index]
         train_loss = cum_loss / len(train_data)
         train_accuracy = accuracy_on_dataset(train_data, params)
         dev_accuracy = accuracy_on_dataset(dev_data, params)

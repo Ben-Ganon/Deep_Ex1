@@ -1,7 +1,11 @@
 # This file provides code which you may or may not find helpful.
 # Use it if you want, or ignore it.
 import random
-
+STUDENT = {'name1': 'Omri Ben Hemo',
+           'ID1': '313255242',
+           'name2': 'Ben Ganon',
+           'ID2': '318731007'
+           }
 
 def read_data(fname):
     data = []

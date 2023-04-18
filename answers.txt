@@ -1,0 +1,11 @@
+Omri Ben Hemo 313255242
+Ben Ganon 318731007
+1. We could not acheive better accuracy with the MLP than with the single layer perceptron.
+Both models capped out at 87% dev accuracy.
+We checked the MLP on the xor problem and after a few iterations got 100% accuracy, so it isn't linear
+We tried training the MLP with many hyperparameter combinations (iterations, learning rate, hidden layer size),
+but could not get over 87 % accuracy. 
+We are very sure of our output function and gradient calculation, so all in all we aren't so sure why this happens.
+2. When we switched to unigrams, we found out that both models had around 16.67 % accuracy, which means they were essentially guessing 1 language of six. (like acheiving 50 % accuracy in a two class problem)
+In total that is expected, since you really cant learn much from unigrams about a language
+3. It took out MLP about 10 - 12 iterations to solve the XOR problem, which is generally expected.

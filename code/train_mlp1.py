@@ -3,7 +3,7 @@ import numpy as np
 import mlp1 as ll
 import random
 import utils
-from utils import F_UNI_I as vocabulary
+from utils import F2I as vocabulary
 
 STUDENT = {'name1': 'Omri Ben Hemo',
            'ID1': '313255242',
@@ -11,6 +11,13 @@ STUDENT = {'name1': 'Omri Ben Hemo',
            'ID2': '318731007'
            }
 
+def read_data(fname):
+    data = []
+    with open(fname, encoding='utf-8') as f:
+        for line in f:
+            label, text = line.strip().lower().split("\t",1)
+            data.append((label, text))
+    return data
 
 def feats_to_vec(features):
     # Create a numpy array of zeros with length equal to the size of the vocabulary
@@ -75,7 +82,7 @@ def train_classifier(train_data, dev_data, num_iterations, learning_rate, params
         dev_accuracy = accuracy_on_dataset(dev_data, params)
 
         print(I, train_loss, train_accuracy, dev_accuracy)
-    return params, dev_accuracy
+    return params
 
 
 def get_key_from_dict(dict, value):
@@ -88,7 +95,7 @@ def run_on_test_and_write(params):
     """
     Read the test set, predict the labels, and write the output to a file.
     """
-    test_data = utils.read_data('../data/test')
+    test_data = read_data('../data/test')
     with open('test.pred', 'w') as f:
         for label, features in test_data:
             x = feats_to_vec(features)
@@ -102,10 +109,10 @@ if __name__ == '__main__':
     train_data = utils.read_data('../data/train')
     dev_data = utils.read_data('../data/dev')
     in_dim = len(feats_to_vec(train_data[0][1]))
-    hid_dim = 16
+    hid_dim = 18
     out_dim = 6
-    num_iterations = 1000
-    learning_rate = 0.01
+    num_iterations = 50
+    learning_rate = 0.001
     # l_rates = [0.001, 0.01,0.05, 0.2, 0.3, 0.1, 0.5]
     # hid_dims = [8, 16, 32, 64]
     # for rate in l_rates:

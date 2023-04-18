@@ -1,5 +1,4 @@
 import numpy as np
-from utils import *
 from loglinear import softmax
 from grad_check import gradient_check
 

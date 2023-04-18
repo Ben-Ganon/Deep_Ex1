@@ -5,8 +5,11 @@ import random
 import utils
 from utils import F_UNI_I as vocabulary
 from xor_data import data
-STUDENT={'name': 'YOUR NAME',
-         'ID': 'YOUR ID NUMBER'}
+STUDENT = {'name1': 'Omri Ben Hemo',
+           'ID1': '313255242',
+           'name2': 'Ben Ganon',
+           'ID2': '318731007'
+           }
 
 
 def feats_to_vec(features):
@@ -94,7 +97,7 @@ if __name__ == '__main__':
     in_dim = len(feats_to_vec(train_data[0][1]))
     hid_dim = 16
     out_dim = 6
-    num_iterations = 500
+    num_iterations = 50
     learning_rate = 0.1
     # l_rates = [0.001, 0.01,0.05, 0.2, 0.3, 0.1, 0.5]
     # hid_dims = [8, 16, 32, 64]
@@ -107,4 +110,3 @@ if __name__ == '__main__':
 
     params = ll.create_classifier(in_dim, hid_dim, out_dim)
     trained_params = train_classifier(train_data, dev_data, num_iterations, learning_rate, params)
-    run_on_test_and_write(trained_params)

@@ -1,8 +1,11 @@
 import numpy as np
 from loglinear import softmax
 
-STUDENT={'name': 'YOUR NAME',
-         'ID': 'YOUR ID NUMBER'}
+STUDENT = {'name1': 'Omri Ben Hemo',
+           'ID1': '313255242',
+           'name2': 'Ben Ganon',
+           'ID2': '318731007'
+           }
 
 def classifier_output(x, params):
     temp_x = x

@@ -3,8 +3,11 @@ from utils import *
 from loglinear import softmax
 from grad_check import gradient_check
 
-STUDENT={'name': 'YOUR NAME',
-         'ID': 'YOUR ID NUMBER'}
+STUDENT = {'name1': 'Omri Ben Hemo',
+           'ID1': '313255242',
+           'name2': 'Ben Ganon',
+           'ID2': '318731007'
+           }
 
 def classifier_output(x, params):
     """

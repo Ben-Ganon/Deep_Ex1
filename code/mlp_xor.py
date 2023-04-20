@@ -3,12 +3,10 @@ import numpy as np
 import mlp1 as ll
 import random
 import utils
-from utils import F_UNI_I as vocabulary
 from xor_data import data
-STUDENT = {'name1': 'Omri Ben Hemo',
-           'ID1': '313255242',
-           'name2': 'Ben Ganon',
-           'ID2': '318731007'
+
+STUDENT = {'name': 'Omri Ben Hemo Ben Ganon',
+           'ID': '313255242_318731007',
            }
 
 

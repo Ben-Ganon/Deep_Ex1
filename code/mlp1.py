@@ -2,10 +2,8 @@ import numpy as np
 from loglinear import softmax
 from grad_check import gradient_check
 
-STUDENT = {'name1': 'Omri Ben Hemo',
-           'ID1': '313255242',
-           'name2': 'Ben Ganon',
-           'ID2': '318731007'
+STUDENT = {'name': 'Omri Ben Hemo Ben Ganon',
+           'ID': '313255242_318731007',
            }
 
 def classifier_output(x, params):
